@@ -29,7 +29,27 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'El email es requerido',
+            'email.email' => 'El email debe ser una dirección de correo válida',
+            'password.required' => 'La contraseña es requerida',
+            'password.string' => 'La contraseña debe ser una cadena de texto',
+        ];
+    }
 
+    /**
+     * Summary of failedValidation
+     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @throws \Illuminate\Http\Exceptions\HttpResponseException
+     * @return never
+     */
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([

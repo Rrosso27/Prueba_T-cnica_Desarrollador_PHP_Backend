@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\CategoriesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,7 +22,7 @@ use App\Http\Controllers\RegisterController;
 
 
 route::get('version', function () {
-    return response()->json(['version' => '1.0.1']);
+    return response()->json(['version' => '1.0.4']);
 });
 
 Route::post('login', [AuthController::class, 'login']);
@@ -32,5 +33,15 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::middleware('auth:api')->group(function () {
     Route::get('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('/', [CategoriesController::class, 'index']);
+        Route::put('/{id}', [CategoriesController::class, 'update']);
+        Route::delete('/{id}', [CategoriesController::class, 'destroy']);
+        Route::post('/', [CategoriesController::class, 'create']);
+
+    });
 });
+
+
 

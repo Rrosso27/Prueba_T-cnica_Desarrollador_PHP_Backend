@@ -39,7 +39,11 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        return response()->json($this->authService->logout());
+        try {
+            return response()->json($this->authService->logout(), 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Logout failed: ' . $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -48,6 +52,13 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json($this->authService->me());
+        try {
+            if (!auth('api')->check()) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+            return response()->json($this->authService->me(), 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Unauthorized: ' . $e->getMessage()], 401);
+        }
     }
 }

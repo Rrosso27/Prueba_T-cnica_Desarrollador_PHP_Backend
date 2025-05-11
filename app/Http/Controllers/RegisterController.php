@@ -26,7 +26,7 @@ class RegisterController extends Controller
             if (isset($response['error'])) {
                 return response()->json(['error' => $response['error']], 422);
             }
-            return response()->json($response, 201);
+            return response()->json($response, status: 201);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Registration failed: ' . $e->getMessage()], 422);
         }

@@ -5,10 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-
-class RegisterRequest extends FormRequest
+class CategoriesRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -26,12 +24,11 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:90',
-            'email' => 'required|string|email|max:255|unique:users',
-            'rol' => 'required|string|in:admin,user',
-            'password' => 'required|string|min:8',
+            'description' => 'required|string|max:255',
         ];
     }
-     /**
+
+    /**
      * Get custom messages for validator errors.
      *
      * @return array
@@ -42,25 +39,16 @@ class RegisterRequest extends FormRequest
             'name.required' => 'El nombre es requerido',
             'name.string' => 'El nombre debe ser una cadena de texto',
             'name.max' => 'El nombre no debe exceder los 90 caracteres',
-            'email.required' => 'El email es requerido',
-            'email.string' => 'El email debe ser una cadena de texto',
-            'email.email' => 'El email debe ser una dirección de correo válida',
-            'email.max' => 'El email no debe exceder los 255 caracteres',
-            'email.unique' => 'El email ya ha sido registrado',
-            'rol.required' => 'El rol es requerido',
-            'rol.string' => 'El rol debe ser una cadena de texto',
-            'rol.in' => 'el rol no es permitido',
-            'password.required' => 'La contraseña es requerida',
-            'password.string' => 'La contraseña debe ser una cadena de texto',
-            'password.min' => 'La contraseña debe tener al menos 8 caracteres',
+            'description.required' => 'La descripción es requerida',
+            'description.string' => 'La descripción debe ser una cadena de texto',
+            'description.max' => 'La descripción no debe exceder los 255 caracteres',
         ];
-
     }
+
     /**
-     * Summary of failedValidation
-     * @param \Illuminate\Contracts\Validation\Validator $validator
-     * @throws \Illuminate\Http\Exceptions\HttpResponseException
-     * @return never
+     * Get custom messages for validator errors.
+     *
+     * @return array
      */
     protected function failedValidation(Validator $validator)
     {
