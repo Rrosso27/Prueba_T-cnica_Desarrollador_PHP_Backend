@@ -10,8 +10,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('user', function (Blueprint $table) {
-            $table->dropColumn('email_verified_at');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('email_verified_at'); // Eliminar el campo 'email_verified_at'
         });
     }
 
@@ -20,8 +20,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('user', function (Blueprint $table) {
-            $table->timestamp('email_verified_at')->nullable();
+        Schema::table('users', function (Blueprint $table) {
+            $table->timestamp('email_verified_at')->nullable(); // Agregar el campo 'email_verified_at' nuevamente
         });
     }
 };
