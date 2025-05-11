@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,9 +38,17 @@ Route::middleware('auth:api')->group(function () {
     Route::group(['prefix' => 'categories'], function () {
         Route::get('/', [CategoriesController::class, 'index']);
         Route::put('/{id}', [CategoriesController::class, 'update']);
+        Route::get('/{id}', [CategoriesController::class, 'show']);
         Route::delete('/{id}', [CategoriesController::class, 'destroy']);
-        Route::post('/', [CategoriesController::class, 'create']);
+        Route::post('/', action: [CategoriesController::class, 'create']);
+    });
 
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('/', [ProductsController::class, 'index']);
+        Route::get('/{id}', [ProductsController::class, 'show']);
+        Route::put('/{id}', [ProductsController::class, 'update']);
+        Route::delete('/{id}', [ProductsController::class, 'destroy']);
+        Route::post('/', [ProductsController::class, 'store']);
     });
 });
 
