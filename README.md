@@ -18,14 +18,12 @@
   ## Construir y levantar los contenedores 🚀  
   Ejecuta los siguientes comandos en la terminal desde la raíz de tu proyecto:
   ~~~bash  
-    docker-compose up -d
+   docker-compose up -d --build
   ~~~
-  ~~~bash  
-    docker-compose build
-  ~~~
+ 
   ## Verificar la aplicación 🔥  
   - Accede a tu aplicación en http://localhost:8080
   - Si necesitas ejecutar comandos de Artisan, puedes hacerlo dentro del contenedor
   ~~~bash  
-    docker exec -it laravel-app php artisan migrate
+    docker exec -it laravel_app php artisan migrate
   ~~~
