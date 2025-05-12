@@ -75,12 +75,55 @@
   - Escalabilidad: Puedes agregar nuevas funcionalidades sin afectar otras capas.
   - Pruebas: Es más fácil probar cada capa de forma aislada.
 
+ ## Requerimientos
+  Para ejecutar esta API, es necesario tener Docker instalado en el equipo
+  ~~~bash  
+   https://www.docker.com/
+  ~~~
+
+ ## Configurar variable mysql
+ Configura las variables de MySQL. Si necesitas modificar container_name, MYSQL_DATABASE o MYSQL_ROOT_PASSWORD a tu gusto, puedes hacerlo desde el archivo  [docker-compose](https://github.com/Rrosso27/Prueba_T-cnica_Desarrollador_PHP_Backend/blob/main/docker-compose.yml), específicamente en esta sección: 
+   ~~~bash  
+     mysql:
+    image: mysql:8.0
+    container_name: laravel_db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - laravel
+  ~~~
+  No es necesario realizar cambios en el docker-compose, ya que la configuración predeterminada debería funcionar correctamente. La personalización es completamente opcional
+
+
+
+ ## .env 
+  - en la raíz del proyecto te encontrarás  una archivo con el nombre de   [.env.example](https://github.com/Rrosso27/Prueba_T-cnica_Desarrollador_PHP_Backend/blob/main/.env.example)  crea una copi y renombrarla como .env 
+  - Si realizaste cambios en las variables de MySQL, recuerda actualizar db_port con el puerto que hayas decidido utilizar, así como db_database, db_username y db_password según tu configuración personalizada. Sin embargo, estos cambios no son necesarios si no modificaste nada en el archivo [docker-compose](https://github.com/Rrosso27/Prueba_T-cnica_Desarrollador_PHP_Backend/blob/main/docker-compose.yml)
+  ~~~bash  
+  DB_CONNECTION=mysql
+  DB_HOST=mysql
+  DB_PORT=3306
+  DB_DATABASE=laravel
+  DB_USERNAME=root
+  DB_PASSWORD=secret
+  ~~~
   ## Construir y levantar los contenedores 🚀  
   Ejecuta los siguientes comandos en la terminal desde la raíz de tu proyecto:
   ~~~bash  
    docker-compose up -d --build
   ~~~
- 
+ ## Generar la clave secreta JWT
+ Esto agregará JWT_SECRET al archivo .env:
+  ~~~bash  
+  php artisan jwt:secret
+  ~~~
+
   ## Verificar la aplicación 🔥  
   - Accede a tu aplicación en http://localhost:8080
   - Si necesitas ejecutar comandos de Artisan, puedes hacerlo dentro del contenedor
@@ -108,3 +151,5 @@
   ~~~bash  
      12345678
   ~~~
+
+
