@@ -29,20 +29,18 @@ route::get('version', function () {
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [RegisterController::class, 'register']);
 
-
-
 Route::middleware('auth:api')->group(function () {
     Route::get('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('registerUser', [RegisterController::class, 'registerUser']);
 
     Route::group(['prefix' => 'categories'], function () {
         Route::get('/', [CategoriesController::class, 'index']);
         Route::put('/{id}', [CategoriesController::class, 'update']);
         Route::get('/{id}', [CategoriesController::class, 'show']);
         Route::delete('/{id}', [CategoriesController::class, 'destroy']);
-        Route::post('/', action: [CategoriesController::class, 'create']);
+        Route::post('/', [CategoriesController::class, 'create']);
     });
-
     Route::group(['prefix' => 'products'], function () {
         Route::get('/', [ProductsController::class, 'index']);
         Route::get('/{id}', [ProductsController::class, 'show']);

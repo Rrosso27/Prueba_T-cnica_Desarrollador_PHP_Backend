@@ -18,17 +18,28 @@ class RegisterController extends Controller
      * @param RegisterRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
+
     public function register(RegisterRequest $request)
     {
+        if ($request->header('Authorization') != null) {
+            try {
+                $this->authorize('create', User::class);
+
+            } catch (\Throwable $th) {
+                return response()->json(['error' => 'Unauthorized'], 403);
+            }
+        }
         try {
             $data = $request->only('name', 'email', 'password', 'rol');
             $response = $this->registerService->register($data);
+
             if (isset($response['error'])) {
                 return response()->json(['error' => $response['error']], 422);
             }
-            return response()->json($response, status: 201);
+
+            return response()->json(['message' => 'User registered successfully', 'data' => $response], 201);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Registration failed: ' . $e->getMessage()], 422);
+            return response()->json(['error' => 'Registration failed: ' . $e->getMessage()], 500);
         }
     }
 }
