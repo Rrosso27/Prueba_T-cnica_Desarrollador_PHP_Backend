@@ -129,20 +129,6 @@
         - base_url: http://localhost:8000 o la IP pública de tu EC2 (ej: http://18.xxx.xxx.xxx)
      - Guarda y selecciona ese entorno antes de hacer peticiones. 
 
-## URL pública de despliegue.
-Esta ruta ya dispone de un usuario administrador preconfigurado
-  ~~~bash  
-    http://18.116.51.144:8000/api
-  ~~~
-usuario: 
-  ~~~bash  
-     admin@gmail.com
-  ~~~
-contraseña: 
-  ~~~bash  
-     12345678
-  ~~~
-
 ## Decisiones de diseño:
  - Elección de enum vs tabla de roles.
     - Más simple y rápido
