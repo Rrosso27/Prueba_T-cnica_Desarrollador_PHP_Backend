@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Request;
 
 class CategoriesController extends Controller
 {
+    protected $categoriesService ;
     public function __construct(CategoriesService $categoriesService)
     {
         $this->categoriesService = $categoriesService;
